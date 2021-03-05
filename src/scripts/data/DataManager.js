@@ -19,10 +19,10 @@ export const getLoggedInUser=()=>{
 }
 
 export const getDadJoke = () =>{
-    return fetch ("https://icanhazdadjoke.com/",{
+    return fetch ("https://icanhazdadjoke.com",{
         method:"GET",
         headers: {
-            "Content-Type": "application/json"
+            "Accept": "application/json"
         }
     })
     .then(response => response.json())

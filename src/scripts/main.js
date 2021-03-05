@@ -38,4 +38,6 @@ const showPostList = () => {
   
   
   startGiffyGram();
-getDadJoke();
+getDadJoke().then(jokeResponse => {
+    console.log(jokeResponse);
+})
