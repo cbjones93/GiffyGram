@@ -75,3 +75,13 @@ applicationElement.addEventListener("change", event => {
       console.log(`User wants to see posts since ${yearAsNumber}`)
     }
   })
+  applicationElement.addEventListener('click', event => { 
+      if (event.target.id ==="directMessageIcon"){
+          alert(`Slide into those DMs!`)
+      }
+  })
+  applicationElement.addEventListener('click', event => { 
+    if (event.target.id ==="homePage"){
+        alert(`Going Home!`)
+    }
+})
