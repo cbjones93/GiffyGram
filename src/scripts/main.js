@@ -51,16 +51,16 @@ const showFooter = () =>{
         showFooter();
   }
   
-  startGiffyGram();
-getDadJoke().then(jokeResponse => {
-    console.log(jokeResponse);
-})
-
-getUsers()
-.then(data => {
-    console.log("User Data", data)
-})
-
+  getDadJoke().then(jokeResponse => {
+      console.log(jokeResponse);
+    })
+    
+    getUsers()
+    .then(data => {
+        console.log("User Data", data)
+    })
+    startGiffyGram();
+//--------------------- EVENT LISTENERS-------------------------------
 const applicationElement = document.querySelector(".giffygram");
 
 applicationElement.addEventListener("click", event => {
