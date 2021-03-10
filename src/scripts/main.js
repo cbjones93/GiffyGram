@@ -26,6 +26,7 @@ let entryElement = document.querySelector(".entryForm")
 // }
 // Are you defining the function here or invoking it?
 
+
 const showPostList = () => {
     const postElement = document.querySelector(".postList");
       getPosts().then((allPosts) => {
@@ -59,6 +60,8 @@ const showFooter = () =>{
     .then(data => {
         console.log("User Data", data)
     })
+    
+
     startGiffyGram();
 //--------------------- EVENT LISTENERS-------------------------------
 const applicationElement = document.querySelector(".giffygram");
