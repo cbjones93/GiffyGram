@@ -1,14 +1,28 @@
-export const getUsers = () => {
+let postCollection = [];
 
-    return fetch("http://localhost:8088/users")
-    .then(response => response.json())
+export const usePostCollection = () => {
+    let postCollectionCopy = [...postCollection]
+    return postCollectionCopy;
 }
 
 export const getPosts = () =>{
 
     return fetch ("http://localhost:8088/posts")
     .then(response => response.json())
+    .then(parsedResponse => {
+        postCollection = parsedResponse
+        return parsedResponse;
+    })
 }
+
+
+export const getUsers = () => {
+
+    return fetch("http://localhost:8088/users")
+    .then(response => response.json())
+}
+
+
 const loggedInUser= {
     id:1,
     name:"bryan",

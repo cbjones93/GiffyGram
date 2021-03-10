@@ -15,18 +15,26 @@
     {
       "id": 2,
       "imageURL": "https://media.giphy.com/media/26xBI73gWquCBBCDe/giphy.gif",
-      "userId": 6,
+      "userId": 2,
       "description": "Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.\n\nDuis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.",
       "timestamp": 1561695022812,
       "title": "Enhanced global utilisation"
-  }
+    },
+    {
+      "imageURL": "https://media.giphy.com/media/M1Y4zWtfCOSZO/giphy.gif",
+      "userID": 1,
+      "description": "The weather is starting to warm up, can't wait for spring!",
+      "id": 3,
+      "timestamp":1615399227000,
+      "title":"Spring Time!"
+    }
   ],
   "messages": [],
-  "likes" : [
+  "likes": [
     {
-        "id": 1,
-        "userId": 1,
-        "postId": 2
+      "id": 1,
+      "userId": 1,
+      "postId": 2
     }
-]
+  ]
 }

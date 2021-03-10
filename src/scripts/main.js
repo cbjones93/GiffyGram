@@ -1,4 +1,4 @@
-import { getPosts, getDadJoke, getUsers} from "./data/DataManager.js";
+import { getPosts, getDadJoke, getUsers,usePostCollection} from "./data/DataManager.js";
 import { PostList } from "./feed/PostList.js";
 import { NavBar } from "./NavBar.js"
 import { Footer } from "./Footer.js"
@@ -25,6 +25,7 @@ let entryElement = document.querySelector(".entryForm")
 // 	postElement.innerHTML = "Hello Cohort 47"
 // }
 // Are you defining the function here or invoking it?
+
 
 const showPostList = () => {
     const postElement = document.querySelector(".postList");
@@ -59,6 +60,8 @@ const showFooter = () =>{
     .then(data => {
         console.log("User Data", data)
     })
+    
+
     startGiffyGram();
 //--------------------- EVENT LISTENERS-------------------------------
 const applicationElement = document.querySelector(".giffygram");
@@ -71,10 +74,24 @@ applicationElement.addEventListener("click", event => {
 applicationElement.addEventListener("change", event => {
     if (event.target.id === "yearSelection") {
       const yearAsNumber = parseInt(event.target.value)
-  
       console.log(`User wants to see posts since ${yearAsNumber}`)
+      showFilteredPosts(yearAsNumber);
     }
   })
+  const showFilteredPosts= (year) => {
+      //get a copy of the post collection
+  const epoch = Date.parse(`01/01/${year}`);
+  //filter the data
+  const filteredData = usePostCollection().filter(singlePost => {
+    if (singlePost.timestamp >= epoch) {
+      return singlePost
+    }
+  })
+  const postElement = document.querySelector(".postList");
+  postElement.innerHTML = PostList(filteredData);
+}
+  
+
   applicationElement.addEventListener('click', event => { 
       if (event.target.id ==="directMessageIcon"){
           alert(`Slide into those DMs!`)

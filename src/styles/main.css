@@ -5,7 +5,10 @@
 @import url("https://fonts.googleapis.com/css?family=Comfortaa|Patua+One");
 /*Typography
 --------------------------------------------------------------*/
-
+.center{
+    display: flex;
+    justify-content: center;
+}
 body, button, input, select, textarea {
     color: #404040;
     font-family: "Comfortaa", Arial, sans-serif;
@@ -46,4 +49,13 @@ h1, h2, h3, h4, h5, h6 {
 .loginForm {
     margin: 0 25%;
 }
+.giffygram{
+    margin-top: 5em;
+    margin-bottom: 3em;
+}
 
+
+.postList{
+    display: flex;
+    flex-direction: column-reverse;
+}
