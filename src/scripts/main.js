@@ -1,7 +1,8 @@
-import { getPosts, getDadJoke, getUsers,usePostCollection} from "./data/DataManager.js";
+import { getPosts, getDadJoke, getUsers,usePostCollection, createPost, getLoggedInUser } from "./data/DataManager.js";
 import { PostList } from "./feed/PostList.js";
 import { NavBar } from "./NavBar.js"
 import { Footer } from "./Footer.js"
+import { PostEntry } from "./feed/PostEntry.js"
 /**
 * Main logic module for what should happen on initial page load for Giffygram
  */
@@ -30,7 +31,7 @@ let entryElement = document.querySelector(".entryForm")
 const showPostList = () => {
     const postElement = document.querySelector(".postList");
       getPosts().then((allPosts) => {
-          postElement.innerHTML = PostList(allPosts);
+          postElement.innerHTML = PostList(allPosts.reverse());
       })
   }
   
@@ -44,12 +45,18 @@ const showFooter = () =>{
     const footerElement = document.querySelector(".footerSection");
     footerElement.innerHTML =
     Footer(); 
-}
+  }
   
+  const showPostEntry = () => { 
+    //Get a reference to the location on the DOM where the nav will display
+    const entryElement = document.querySelector(".entryForm");
+    entryElement.innerHTML = PostEntry();
+  }
   const startGiffyGram = () => {
       showPostList();
         showNavBar();
         showFooter();
+        showPostEntry();
   }
   
   getDadJoke().then(jokeResponse => {
@@ -108,4 +115,34 @@ applicationElement.addEventListener("click", (event) => {
 		console.log("post clicked", event.target.id.split("--"))
 		console.log("the id is", event.target.id.split("--")[1])
 	}
+})
+applicationElement.addEventListener("click", event => {
+  if (event.target.id === "newPost__cancel") {
+      //clear the input fields
+  }
+})
+
+applicationElement.addEventListener("click", event => {
+  event.preventDefault();
+  if (event.target.id === "newPost__submit") {
+  //collect the input values into an object to post to the DB
+    const title = document.querySelector("input[name='postTitle']").value
+    const url = document.querySelector("input[name='postURL']").value
+    const description = document.querySelector("textarea[name='postDescription']").value
+    //we have not created a user yet - for now, we will hard code `1`.
+    //we can add the current time as well
+    const postObject = {
+        title: title,
+        imageURL: url,
+        description: description,
+        userId: getLoggedInUser().id,
+        timestamp: Date.now()
+    }
+
+  // be sure to import from the DataManager
+      createPost(postObject)
+      .then(response => {
+        location.reload(true);
+      })
+  }
 })
