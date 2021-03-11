@@ -25,8 +25,24 @@
       "userID": 1,
       "description": "The weather is starting to warm up, can't wait for spring!",
       "id": 3,
-      "timestamp":1615399227000,
-      "title":"Spring Time!"
+      "timestamp": 1615399227000,
+      "title": "Spring Time!"
+    },
+    {
+      "title": "Create New Post",
+      "imageURL": "https://media.giphy.com/media/3oz8xv3t2X4sAWkadO/giphy.gif",
+      "description": "New Post within Localhost",
+      "userId": 1,
+      "timestamp": 1615477865292,
+      "id": 4
+    },
+    {
+      "title": "Favorite Childhood Game",
+      "imageURL": "https://media.giphy.com/media/sUgZldbQr28GIl9fTh/giphy.gif",
+      "description": "",
+      "userId": 1,
+      "timestamp": 1615478294909,
+      "id": 6
     }
   ],
   "messages": [],

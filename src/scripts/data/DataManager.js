@@ -28,10 +28,10 @@ const loggedInUser= {
     name:"bryan",
     email:"bryan@home",
 }
-export const getLoggedInUser=()=>{
-    return loggedInUser;
-}
 
+export const getLoggedInUser=()=>{
+    return {...loggedInUser};
+}
 export const getDadJoke = () =>{
     return fetch ("https://icanhazdadjoke.com",{
         method:"GET",
@@ -41,4 +41,14 @@ export const getDadJoke = () =>{
     })
     .then(response => response.json())
     }
-  
+    export const createPost = postObj => {
+        return fetch("http://localhost:8088/posts", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(postObj)
+      
+        })
+            .then(response => response.json())
+      }
