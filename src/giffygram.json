@@ -29,20 +29,20 @@
       "title": "Spring Time!"
     },
     {
-      "title": "Create New Post",
-      "imageURL": "https://media.giphy.com/media/3oz8xv3t2X4sAWkadO/giphy.gif",
-      "description": "New Post within Localhost",
-      "userId": 1,
-      "timestamp": 1615477865292,
-      "id": 4
-    },
-    {
       "title": "Favorite Childhood Game",
       "imageURL": "https://media.giphy.com/media/sUgZldbQr28GIl9fTh/giphy.gif",
       "description": "",
       "userId": 1,
       "timestamp": 1615478294909,
       "id": 6
+    },
+    {
+      "title": "Added Delete Button!",
+      "imageURL": "https://media.giphy.com/media/7nrZ4AQdTqswkm2hcl/giphy.gif",
+      "description": "Added delete button to posts!",
+      "userId": 1,
+      "timestamp": 1616509857687,
+      "id": 7
     }
   ],
   "messages": [],
