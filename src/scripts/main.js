@@ -1,8 +1,8 @@
-import { getPosts, getDadJoke, getUsers,usePostCollection, createPost, getLoggedInUser, deletePost } from "./data/DataManager.js";
+import { getPosts, getDadJoke, getUsers,usePostCollection, createPost, getLoggedInUser, deletePost, getSinglePost, updatePost } from "./data/DataManager.js";
 import { PostList } from "./feed/PostList.js";
 import { NavBar } from "./NavBar.js"
 import { Footer } from "./Footer.js"
-import { PostEntry } from "./feed/PostEntry.js"
+import { PostEntry, PostEdit } from "./feed/PostEntry.js"
 /**
 * Main logic module for what should happen on initial page load for Giffygram
  */
@@ -46,7 +46,10 @@ const showFooter = () =>{
     footerElement.innerHTML =
     Footer(); 
   }
-  
+  const showEdit = (postObj) => {
+    const entryElement = document.querySelector(".entryForm");
+    entryElement.innerHTML = PostEdit(postObj);
+  }
   const showPostEntry = () => { 
     //Get a reference to the location on the DOM where the nav will display
     const entryElement = document.querySelector(".entryForm");
@@ -111,14 +114,14 @@ applicationElement.addEventListener("change", event => {
 })
 applicationElement.addEventListener("click", (event) => {
 	
-	if (event.target.id.startsWith("edit")){
-		console.log("post clicked", event.target.id.split("--"))
-		console.log("the id is", event.target.id.split("--")[1])
-	}
-})
+// 	if (event.target.id.startsWith("edit")){
+// 		console.log("post clicked", event.target.id.split("--"))
+// 		console.log("the id is", event.target.id.split("--")[1])
+// 	}
+// })
 applicationElement.addEventListener("click", event => {
   if (event.target.id === "newPost__cancel") {
-      //clear the input fields
+    showPostEntry();
   }
 })
 
@@ -157,3 +160,43 @@ applicationElement.addEventListener("click", event => {
       })
   }
 })
+
+applicationElement.addEventListener("click", event => {
+  event.preventDefault();
+  if (event.target.id.startsWith("edit")) {
+    const postId = event.target.id.split("__")[1];
+    getSinglePost(postId)
+      .then(response => {
+        showEdit(response);
+      })
+  }
+})
+})
+
+applicationElement.addEventListener("click", event => {
+  event.preventDefault();
+  if (event.target.id.startsWith("updatePost")) {
+    const postId = event.target.id.split("__")[1];
+    //collect all the details into an object
+    const title = document.querySelector("input[name='postTitle']").value
+    const url = document.querySelector("input[name='postURL']").value
+    const description = document.querySelector("textarea[name='postDescription']").value
+    const timestamp = document.querySelector("input[name='postTime']").value
+    
+    const postObject = {
+      title: title,
+      imageURL: url,
+      description: description,
+      userId: getLoggedInUser().id,
+      timestamp: parseInt(timestamp),
+      id: parseInt(postId)
+    }
+    
+    updatePost(postObject)
+      .then(response => {
+        showPostList();
+        showPostEntry();
+      })
+  }
+})
+
