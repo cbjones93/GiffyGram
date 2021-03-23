@@ -52,3 +52,15 @@ export const getDadJoke = () =>{
         })
             .then(response => response.json())
       }
+
+      export const deletePost = postId => {
+        return fetch(`http://localhost:8088/posts/${postId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+      
+        })
+            .then(response => response.json())
+            .then(getPosts)
+      }

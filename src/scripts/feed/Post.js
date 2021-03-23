@@ -14,7 +14,9 @@ export const Post = (postObject) => {
       <div> Date: ${date} </div>
       <div> <p>${postObject.description}</p></div>
       <div><button id="edit--${postObject.id}">Edit</button></div>
+      <button id="delete__${postObject.id}">Delete</button>
     </section>
   `
  
 }
+
