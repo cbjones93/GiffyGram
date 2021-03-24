@@ -22,7 +22,7 @@
     },
     {
       "imageURL": "https://media.giphy.com/media/M1Y4zWtfCOSZO/giphy.gif",
-      "userID": 1,
+      "userId": 1,
       "description": "The weather is starting to warm up, can't wait for spring!",
       "id": 3,
       "timestamp": 1615399227000,
@@ -35,14 +35,6 @@
       "userId": 1,
       "timestamp": 1615478294909,
       "id": 6
-    },
-    {
-      "title": "Added Delete Button!",
-      "imageURL": "https://media.giphy.com/media/7nrZ4AQdTqswkm2hcl/giphy.gif",
-      "description": "Added delete button to posts! This is really cool!",
-      "userId": 1,
-      "timestamp": 1616509857687,
-      "id": 7
     }
   ],
   "messages": [],
