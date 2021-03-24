@@ -1,11 +1,13 @@
-import { getPosts, getDadJoke, getUsers,usePostCollection, createPost, getLoggedInUser, deletePost, getSinglePost, updatePost } from "./data/DataManager.js";
+import { getPosts, getDadJoke, getUsers,usePostCollection, createPost, getLoggedInUser, deletePost, getSinglePost, updatePost, loginUser, registerUser, logoutUser, setLoggedInUser, filteredUserPost } from "./data/DataManager.js";
 import { PostList } from "./feed/PostList.js";
 import { NavBar } from "./NavBar.js"
 import { Footer } from "./Footer.js"
 import { PostEntry, PostEdit } from "./feed/PostEntry.js"
-/**
-* Main logic module for what should happen on initial page load for Giffygram
- */
+import { RegisterForm } from "../scripts/auth/RegisterForm.js"
+import {LoginForm } from "../scripts/auth/LoginForm.js"
+// //
+// * Main logic module for what should happen on initial page load for Giffygram
+//  */
 
 //Get a reference to the location on the DOM where the app will display
 let postElement = document.querySelector(".postList");
@@ -35,6 +37,12 @@ const showPostList = () => {
       })
   }
   
+const showFilteredUserPosts = () => {
+const postElement = document.querySelector(".postList");
+filteredUserPost().then((allPosts) => {
+  postElement.innerHTML = PostList(allPosts.reverse());
+})
+}
   const showNavBar = () => {
     //Get a reference to the location on the DOM where the nav will display
     const navElement = document.querySelector("nav");
@@ -55,6 +63,28 @@ const showFooter = () =>{
     const entryElement = document.querySelector(".entryForm");
     entryElement.innerHTML = PostEntry();
   }
+
+  const checkForUser = () => {
+    if (sessionStorage.getItem("user")){
+      //this is expecting an object. Need to fix
+      setLoggedInUser(JSON.parse(sessionStorage.getItem("user")));
+      startGiffyGram();
+    }else {
+      //show login/register
+      showLoginRegister();
+    }
+  }
+
+  const showLoginRegister = () => {
+  	showNavBar();
+  	const entryElement = document.querySelector(".entryForm");
+  	//template strings can be used here too
+  	entryElement.innerHTML = `${LoginForm()} <hr/> <hr/> ${RegisterForm()}`;
+  	//make sure the post list is cleared out too
+	const postElement = document.querySelector(".postList");
+	postElement.innerHTML = "";
+}
+
   const startGiffyGram = () => {
       showPostList();
         showNavBar();
@@ -72,14 +102,19 @@ const showFooter = () =>{
     })
     
 
-    startGiffyGram();
+  checkForUser();
+
+  // filteredUserPost();
 //--------------------- EVENT LISTENERS-------------------------------
 const applicationElement = document.querySelector(".giffygram");
 
 applicationElement.addEventListener("click", event => {
-	if (event.target.id === "logout"){
-		console.log("You clicked on logout")
-	}
+  if (event.target.id === "logout") {
+    logoutUser();
+    console.log(getLoggedInUser());
+    sessionStorage.clear();
+    checkForUser();
+  }
 })
 applicationElement.addEventListener("change", event => {
     if (event.target.id === "yearSelection") {
@@ -200,3 +235,48 @@ applicationElement.addEventListener("click", event => {
   }
 })
 
+
+applicationElement.addEventListener("click", event => {
+  event.preventDefault();
+  if (event.target.id === "login__submit") {
+    //collect all the details into an object
+    const userObject = {
+      name: document.querySelector("input[name='name']").value,
+      email: document.querySelector("input[name='email']").value
+    }
+    loginUser(userObject)
+    .then(dbUserObj => {
+      if(dbUserObj){
+        sessionStorage.setItem("user", JSON.stringify(dbUserObj));
+        startGiffyGram();
+      }else {
+        //got a false value - no user
+        const entryElement = document.querySelector(".entryForm");
+        entryElement.innerHTML = `<p class="center">That user does not exist. Please try again or register for your free account.</p> ${LoginForm()} <hr/> <hr/> ${RegisterForm()}`;
+      }
+    })
+  }
+})
+
+applicationElement.addEventListener("click", event => {
+  event.preventDefault();
+  if (event.target.id === "register__submit") {
+    //collect all the details into an object
+    const userObject = {
+      name: document.querySelector("input[name='registerName']").value,
+      email: document.querySelector("input[name='registerEmail']").value
+    }
+    registerUser(userObject)
+    .then(dbUserObj => {
+      sessionStorage.setItem("user", JSON.stringify(dbUserObj));
+      startGiffyGram();
+    })
+  }
+})
+
+applicationElement.addEventListener("click",event =>{
+  event.preventDefault();
+  if (event.target.id === "filteredUserPosts"){
+    showFilteredUserPosts();
+  }
+})

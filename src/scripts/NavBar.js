@@ -16,6 +16,7 @@ export const NavBar = () => {
             <div class="navigation__item navigation__logout">
                 <button id="logout" class="fakeLink">Logout</button>
             </div>
+         
         </nav>
     `
 }
