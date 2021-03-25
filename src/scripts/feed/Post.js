@@ -1,5 +1,12 @@
 // ------------------------timestamp-----------------///
-import { getLoggedInUser } from "../data/DataManager.js"
+import { getLoggedInUser,getLikes } from "../data/DataManager.js"
+
+const getNumberOfLikes = (postId) => {
+  getLikes(postId)
+  .then(response => {
+    document.querySelector(`#likes__${postId}`).innerHTML = `👍 ${response.length}`;
+  })
+}
 
 export const Post = (postObject) => {
   let postTimestamp = postObject.timestamp;
@@ -16,6 +23,8 @@ export const Post = (postObject) => {
       <div> <p>${postObject.description}</p></div>
       <div><button id="edit--${postObject.id}">Edit</button></div>
       <button id="delete__${postObject.id}">Delete</button>
+      <button id="like__${postObject.id}">Like</button>
+      <p id="likes__${postObject.id}">👍 ${getNumberOfLikes(postObject.id)}</p>
     </section>
   `
   } else {
@@ -27,6 +36,8 @@ export const Post = (postObject) => {
     <div> User: ${postObject.user.name}
     <div> Date: ${date} </div>
     <div> <p>${postObject.description}</p></div>
+    <button id="like__${postObject.id}">Like</button>
+    <p id="likes__${postObject.id}">👍 ${getNumberOfLikes(postObject.id)}</p>
     </section>`
   }
 }
